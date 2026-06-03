@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payments | Bobo Kindergarten</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  .payments-page {
+    min-height: 100vh;
+    padding: 110px 5vw 70px;
+    background: linear-gradient(135deg, #fffdf7 0%, #eef9ff 48%, #fff1f5 100%);
+  }
+  .payments-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .payments-card {
+    background: rgba(255,255,255,0.94);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 34px;
+  }
+  .payments-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--mid); text-decoration: none; font-weight: 700; margin-bottom: 18px;
+  }
+  .payments-back:hover { color: var(--dark); }
+  .payments-card h2 {
+    font-family: 'Quicksand', sans-serif; font-size: 1.45rem; font-weight: 800; margin-bottom: 10px;
+  }
+  .payments-card p { color: var(--mid); line-height: 1.7; }
+
+  /* ── Pending panel ── */
+  .pending-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 20px; flex-wrap: wrap;
+  }
+  .pending-header h2 { margin: 0; }
+  .badge-count {
+    background: var(--grass); color: #fff;
+    font-family: 'Quicksand', sans-serif; font-weight: 800; font-size: .85rem;
+    padding: 3px 11px; border-radius: 999px;
+  }
+  .badge-count.zero { background: rgba(45,42,62,0.12); color: var(--mid); }
+  .refresh-btn {
+    margin-left: auto; background: none; border: 2px solid rgba(86,197,150,0.3);
+    color: var(--grass); font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: .85rem;
+    padding: 6px 14px; border-radius: 999px; cursor: pointer; transition: all .2s;
+  }
+  .refresh-btn:hover { background: rgba(86,197,150,0.08); border-color: var(--grass); }
+  .pending-empty {
+    text-align: center; padding: 32px 0; color: var(--mid);
+  }
+  .pending-empty .empty-icon { font-size: 2.6rem; margin-bottom: 8px; }
+  .pending-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  .pending-card {
+    border: 2px solid rgba(86,197,150,0.22);
+    border-radius: 18px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(86,197,150,0.04), rgba(79,195,247,0.04));
+    position: relative;
+  }
+  .pending-card .kaspi-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(255,0,0,0.08); color: #c0022b; border-radius: 999px;
+    font-size: .75rem; font-weight: 800; padding: 3px 10px; margin-bottom: 10px;
+  }
+  .pending-card .pc-amount {
+    font-family: 'Quicksand', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--grass);
+    margin-bottom: 4px;
+  }
+  .pending-card .pc-plan {
+    font-weight: 700; color: var(--dark); margin-bottom: 2px;
+  }
+  .pending-card .pc-meta {
+    font-size: .82rem; color: var(--mid); margin-bottom: 12px; line-height: 1.6;
+  }
+  .pending-card .receipt-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(45,42,62,0.06); border-radius: 10px;
+    padding: 6px 12px; font-size: .82rem; font-weight: 700; color: var(--dark);
+    margin-bottom: 14px; word-break: break-all;
+  }
+  .pending-card .receipt-chip span { color: var(--mid); font-weight: 400; }
+  .fill-btn {
+    width: 100%; border: none; border-radius: 999px; padding: 11px 16px;
+    background: var(--grass); color: #fff; font-family: 'Quicksand', sans-serif;
+    font-size: .9rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 6px 18px rgba(86,197,150,0.26); transition: transform .15s, box-shadow .15s;
+  }
+  .fill-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(86,197,150,0.3); }
+  .pulsing { animation: pulse-green 2s infinite; }
+  @keyframes pulse-green {
+    0%,100% { box-shadow: 0 6px 18px rgba(86,197,150,0.26); }
+    50%      { box-shadow: 0 6px 28px rgba(86,197,150,0.55); }
+  }
+
+  /* ── Main grid ── */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.05fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  /* ── Plan options ── */
+  .plan-options { display: grid; gap: 10px; margin: 18px 0 20px; }
+  .plan-option {
+    display: flex; gap: 12px; align-items: center; padding: 14px 16px;
+    border: 2px solid rgba(45,42,62,0.08); border-radius: 16px; cursor: pointer;
+    transition: all .2s; background: #fff;
+  }
+  .plan-option:hover, .plan-option.active { border-color: var(--grass); background: rgba(86,197,150,0.06); }
+  .plan-option input { accent-color: var(--grass); }
+  .plan-copy { flex: 1; }
+  .plan-copy strong { display: block; color: var(--dark); }
+  .plan-copy span { display: block; color: var(--mid); font-size: .84rem; margin-top: 3px; }
+  .plan-amount { font-family: 'Quicksand', sans-serif; font-weight: 800; color: var(--grass); }
+  .amount-bar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 18px; border-radius: 16px;
+    background: rgba(86,197,150,0.08); border: 1.5px solid rgba(86,197,150,0.22); margin-bottom: 18px;
+  }
+  .amount-bar strong { font-family: 'Quicksand', sans-serif; font-size: 1.5rem; }
+
+  /* ── Method toggle ── */
+  .method-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+  .method-btn {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 6px; padding: 14px 10px; border-radius: 16px; cursor: pointer;
+    border: 2px solid rgba(45,42,62,0.10); background: #fff;
+    font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: .95rem; color: var(--mid);
+    transition: all .2s;
+  }
+  .method-btn .method-icon { font-size: 1.6rem; }
+  .method-btn.active     { border-color: var(--grass); background: rgba(86,197,150,0.08); color: var(--dark); box-shadow: 0 4px 16px rgba(86,197,150,0.18); }
+  .method-btn.cash-active { border-color: #F9A825; background: rgba(249,168,37,0.08); color: var(--dark); box-shadow: 0 4px 16px rgba(249,168,37,0.18); }
+
+  /* Auto-fill highlight on receipt input */
+  .autofilled {
+    border-color: var(--grass) !important;
+    background: rgba(86,197,150,0.07) !important;
+    transition: background .4s, border-color .4s;
+  }
+  .autofill-note {
+    font-size: .78rem; color: var(--grass); font-weight: 700; margin-top: 4px; display: none;
+  }
+  .autofill-note.visible { display: block; }
+
+  .cash-notice {
+    display: none; background: rgba(249,168,37,0.10); border: 1.5px solid rgba(249,168,37,0.30);
+    border-radius: 14px; padding: 13px 16px; margin-bottom: 14px;
+    font-size: .88rem; color: #7a5a00; font-weight: 600; line-height: 1.6;
+  }
+  .cash-notice.visible { display: block; }
+
+  .verify-badge {
+    display: none; align-items: center; gap: 8px;
+    font-size: .82rem; font-weight: 700; padding: 7px 13px; border-radius: 999px; margin-top: 8px;
+  }
+  .verify-badge.checking { display: flex; color: #777; background: rgba(0,0,0,0.05); }
+  .verify-badge.ok       { display: flex; color: #1a7a4a; background: rgba(86,197,150,0.14); }
+  .verify-badge.fail     { display: flex; color: #c0224b; background: rgba(192,34,75,0.10); }
+
+  .payments-form .form-group label { color: var(--dark); }
+  .payments-form .form-group input,
+  .payments-form .form-group select { background: #fff; }
+
+  .payments-submit {
+    width: 100%; border: none; border-radius: 999px; padding: 16px 20px;
+    background: var(--grass); color: #fff; font-family: 'Quicksand', sans-serif;
+    font-size: 1rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 8px 24px rgba(86,197,150,0.28); transition: transform .2s, box-shadow .2s;
+  }
+  .payments-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(86,197,150,0.32); }
+  .payments-submit:disabled { opacity: 0.7; cursor: wait; transform: none; }
+  .payments-status { min-height: 20px; margin-bottom: 14px; color: #c0224b; font-weight: 700; font-size: .88rem; }
+  .payments-success { display: none; text-align: center; padding-top: 8px; }
+  .payments-success .check { font-size: 3.4rem; margin-bottom: 10px; }
+  .payments-success h3 { font-family: 'Quicksand', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .payments-success p { color: var(--mid); }
+
+  /* ── QR/instructions column ── */
+  .payments-hero { margin-bottom: 24px; }
+  .payments-hero .section-tag { background: rgba(86,197,150,0.12); color: var(--grass); }
+  .payments-hero p { color: var(--mid); line-height: 1.7; }
+  .qr-shell { display: grid; place-items: center; margin: 26px 0 22px; }
+  .qr-box {
+    width: 200px; height: 200px; border-radius: 22px;
+    border: 2px dashed rgba(86,197,150,0.36);
+    background: linear-gradient(135deg, rgba(86,197,150,0.08), rgba(79,195,247,0.08));
+    display: flex; align-items: center; justify-content: center; text-align: center; padding: 18px; overflow: hidden;
+  }
+  .qr-box img { width: 100%; height: 100%; object-fit: contain; }
+  .qr-fallback { color: var(--mid); font-weight: 700; line-height: 1.6; font-size: .85rem; }
+  .payment-summary {
+    background: rgba(255,184,48,0.08); border: 1.5px solid rgba(255,184,48,0.24);
+    border-radius: 16px; padding: 14px 16px; margin-top: 16px; font-size: .88rem;
+  }
+  .payment-summary strong { display: block; color: var(--dark); margin-bottom: 4px; }
+  .invoice-actions { display: grid; gap: 12px; margin-top: 18px; }
+  .invoice-btn {
+    width: 100%; border: none; border-radius: 999px; padding: 14px 18px;
+    background: #e53935; color: #fff; font-family: 'Quicksand', sans-serif;
+    font-size: .95rem; font-weight: 800; cursor: pointer;
+    box-shadow: 0 8px 22px rgba(229,57,53,0.22); transition: transform .2s, box-shadow .2s;
+  }
+  .invoice-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(229,57,53,0.28); }
+  .invoice-btn:disabled { opacity: .7; cursor: wait; transform: none; }
+  .invoice-status {
+    min-height: 20px; font-size: .85rem; font-weight: 700; color: var(--mid);
+  }
+  .invoice-status.error { color: #c0224b; }
+  .invoice-status.success { color: #1a7a4a; }
+  .invoice-link {
+    display: none; text-align: center; font-size: .85rem; font-weight: 700; color: var(--grass);
+  }
+  .invoice-link.visible { display: block; }
+  .invoice-link a { color: inherit; }
+  .payment-steps { display: grid; gap: 10px; margin-top: 16px; }
+  .payment-step { display: flex; gap: 12px; align-items: flex-start; }
+  .payment-step span {
+    width: 26px; height: 26px; border-radius: 50%; background: var(--grass); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; font-size: .85rem;
+  }
+  .payment-step p { margin: 0; font-size: .88rem; color: var(--mid); line-height: 1.6; }
+
+  @media (max-width: 900px) {
+    .main-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <div class="logo-icon">⭐</div>
+    <span>Bobo Kindergarten</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html#about">About</a>
+    <a href="index.html#programs">Programs</a>
+    <a href="index.html#schedule">Schedule</a>
+    <a href="payments.html" class="nav-cta">Payments</a>
+    <a href="index.html#contact">Enroll</a>
+  </div>
+  <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<main class="payments-page">
+  <div class="payments-wrap">
+    <a class="payments-back" href="index.html">← Back to main site</a>
+
+    <!-- ══ PENDING PAYMENTS PANEL ════════════════════════════════════════════ -->
+    <section class="payments-card" id="pendingPanel">
+      <div class="pending-header">
+        <h2>🔔 Payments Waiting for Confirmation</h2>
+        <span class="badge-count zero" id="pendingCount">0</span>
+        <button class="refresh-btn" onclick="loadPending()">↻ Refresh</button>
+      </div>
+      <div id="pendingBody">
+        <div class="pending-empty">
+          <div class="empty-icon">⏳</div>
+          <p>No pending payments right now.<br>When a parent pays via Kaspi, their receipt will appear here automatically.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ MAIN FORM GRID ════════════════════════════════════════════════════ -->
+    <div class="main-grid">
+
+      <!-- Left: QR + instructions -->
+      <section class="payments-card">
+        <div class="payments-hero">
+          <div class="section-tag">Payment</div>
+          <h1 class="section-title">Confirm Tuition Payment</h1>
+          <p>Create a Kaspi invoice for the selected phone and plan. As soon as the client pays, the receipt number will be pasted into the form automatically.</p>
+        </div>
+        <h2>Kaspi QR</h2>
+        <p>Use the button below to generate a fresh payment session. The page will watch that invoice and auto-fill the receipt immediately after payment.</p>
+        <div class="qr-shell">
+          <div class="qr-box">
+            <img src="kaspi-qr.png" alt="Kaspi QR" id="kaspiQrImage"
+                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="qr-fallback" style="display:none;">Add <code>kaspi-qr.png</code> to show your real QR code.</div>
+          </div>
+        </div>
+        <div class="invoice-actions">
+          <button type="button" class="invoice-btn" id="createInvoiceBtn">Generate Kaspi Invoice</button>
+          <div class="invoice-status" id="invoiceStatus">Enter the client phone number, then generate a Kaspi invoice.</div>
+          <div class="invoice-link" id="invoiceLinkWrap">
+            <a href="#" id="invoiceLink" target="_blank" rel="noopener noreferrer">Open Kaspi payment link</a>
+          </div>
+        </div>
+        <div class="payment-summary">
+          <strong>Important</strong>
+          Close <code>payments.xlsx</code> in Excel before confirming a payment.
+        </div>
+        <div class="payment-steps">
+          <div class="payment-step"><span>1</span><p>Choose the plan and enter the client's phone number.</p></div>
+          <div class="payment-step"><span>2</span><p>Click <em>Generate Kaspi Invoice</em> and show the QR or payment link to the client.</p></div>
+          <div class="payment-step"><span>3</span><p>The site checks the invoice every few seconds.</p></div>
+          <div class="payment-step"><span>4</span><p>When Kaspi confirms payment, the receipt number is auto-filled below immediately.</p></div>
+          <div class="payment-step"><span>5</span><p>Add parent/child name and click <em>Confirm Payment</em> to save the row.</p></div>
+        </div>
+      </section>
+
+      <!-- Right: Confirmation form -->
+      <section class="payments-card">
+        <h2>Payment Details</h2>
+
+        <!-- Plan selector -->
+        <div class="plan-options" id="planOptions">
+          <label class="plan-option active">
+            <input type="radio" name="plan" value="Nursery Half Day" data-amount="45000" checked>
+            <div class="plan-copy"><strong>🐣 Nursery (Half Day)</strong><span>7:30 AM – 1:30 PM</span></div>
+            <div class="plan-amount">₸45,000</div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="Pre-K Full Day" data-amount="65000">
+            <div class="plan-copy"><strong>🌱 Pre-K (Full Day)</strong><span>7:30 AM – 3:30 PM</span></div>
+            <div class="plan-amount">₸65,000</div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="Kindergarten Full Day" data-amount="75000">
+            <div class="plan-copy"><strong>📚 Kindergarten (Full Day)</strong><span>7:30 AM – 3:30 PM</span></div>
+            <div class="plan-amount">₸75,000</div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="After-Care Extension" data-amount="20000">
+            <div class="plan-copy"><strong>🌙 After-Care Extension</strong><span>3:30 PM – 7:00 PM</span></div>
+            <div class="plan-amount">₸20,000</div>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="plan" value="Lunch Program" data-amount="12000">
+            <div class="plan-copy"><strong>🍱 Lunch Program</strong><span>Nutritious daily meals</span></div>
+            <div class="plan-amount">₸12,000</div>
+          </label>
+        </div>
+
+        <div class="amount-bar">
+          <span>Amount</span>
+          <strong id="selectedAmount">₸45,000</strong>
+        </div>
+
+        <!-- Payment method -->
+        <div style="margin-bottom:6px; font-weight:700; color:var(--dark); font-size:.9rem;">Payment Method</div>
+        <div class="method-toggle">
+          <button type="button" class="method-btn active" id="btnKaspi" onclick="setMethod('Kaspi')">
+            <span class="method-icon">📱</span>Kaspi
+          </button>
+          <button type="button" class="method-btn" id="btnCash" onclick="setMethod('Cash')">
+            <span class="method-icon">💵</span>Cash
+          </button>
+        </div>
+
+        <div class="cash-notice" id="cashNotice">
+          💡 Cash payments are saved as <strong>Cash - Confirmed</strong>. No receipt needed — confirm you physically received the money first.
+        </div>
+
+        <form class="payments-form" id="paymentForm">
+          <div class="form-group">
+            <label>Parent Name</label>
+            <input type="text" id="parentName" name="parentName" required>
+          </div>
+          <div class="form-group">
+            <label>Child Name</label>
+            <input type="text" id="childName" name="childName" required>
+          </div>
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" id="phoneInput" name="phone" placeholder="+7 700 000 0000" required>
+          </div>
+
+          <!-- Receipt — shown for Kaspi only -->
+          <div class="form-group" id="receiptGroup">
+            <label>Receipt Number <span style="color:var(--mid);font-size:.82rem;">(from Kaspi)</span></label>
+            <input type="text" name="receiptNumber" id="receiptInput" placeholder="e.g. 123456789">
+            <div class="autofill-note" id="autofillNote">✨ Auto-filled from Kaspi payment</div>
+            <div class="verify-badge" id="verifyBadge"></div>
+          </div>
+
+          <div class="form-group">
+            <label>Payment Month</label>
+            <input type="text" id="paymentMonth" name="paymentMonth" placeholder="April 2026" required>
+          </div>
+
+          <p class="payments-status" id="paymentError"></p>
+          <button type="button" class="payments-submit" id="paymentSubmit">Confirm Payment</button>
+          <div class="payments-success" id="paymentSuccess">
+            <div class="check">🎉</div>
+            <h3>Payment Saved!</h3>
+            <p id="successMessage">Row added to <code>payments.xlsx</code>.</p>
+          </div>
+        </form>
+      </section>
+    </div><!-- /.main-grid -->
+  </div><!-- /.payments-wrap -->
+</main>
+
+<script>
+  // ── Nav scroll ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── Pre-fill today's month ──
+  document.getElementById('paymentMonth').value =
+    new Date().toLocaleDateString('en-KZ', { month: 'long', year: 'numeric' });
+
+  // ── Plan selection ──
+  document.querySelectorAll('.plan-option input[type="radio"]').forEach((radio) => {
+    radio.addEventListener('change', () => {
+      document.querySelectorAll('.plan-option').forEach((o) => o.classList.remove('active'));
+      radio.closest('.plan-option').classList.add('active');
+      document.getElementById('selectedAmount').textContent =
+        `₸${Number(radio.dataset.amount).toLocaleString('ru-KZ')}`;
+    });
+  });
+
+  // ── Payment method ──
+  let currentMethod = 'Kaspi';
+
+  function setMethod(method) {
+    currentMethod = method;
+    document.getElementById('btnKaspi').className = 'method-btn' + (method === 'Kaspi' ? ' active' : '');
+    document.getElementById('btnCash').className  = 'method-btn' + (method === 'Cash'  ? ' cash-active' : '');
+
+    const receiptGrp = document.getElementById('receiptGroup');
+    const receiptInput = document.getElementById('receiptInput');
+    const cashNotice = document.getElementById('cashNotice');
+    const badge = document.getElementById('verifyBadge');
+
+    if (method === 'Cash') {
+      receiptGrp.style.display = 'none';
+      receiptInput.required = false;
+      receiptInput.value = '';
+      cashNotice.classList.add('visible');
+      badge.className = 'verify-badge';
+      document.getElementById('autofillNote').classList.remove('visible');
+    } else {
+      receiptGrp.style.display = '';
+      receiptInput.required = true;
+      cashNotice.classList.remove('visible');
+    }
+  }
+
+  // ── Pending payments ─────────────────────────────────────────────────────────
+  const qrImage = document.getElementById('kaspiQrImage');
+  const invoiceBtn = document.getElementById('createInvoiceBtn');
+  const invoiceStatus = document.getElementById('invoiceStatus');
+  const invoiceLinkWrap = document.getElementById('invoiceLinkWrap');
+  const invoiceLink = document.getElementById('invoiceLink');
+  const defaultQrSrc = qrImage.getAttribute('src');
+  let activeInvoice = null;
+  let invoicePollTimer = null;
+
+  function setInvoiceStatus(message, tone = '') {
+    invoiceStatus.textContent = message;
+    invoiceStatus.className = 'invoice-status' + (tone ? ` ${tone}` : '');
+  }
+
+  function resetInvoiceLink() {
+    invoiceLink.href = '#';
+    invoiceLinkWrap.classList.remove('visible');
+  }
+
+  function showInvoiceLink(url) {
+    if (!url) {
+      resetInvoiceLink();
+      return;
+    }
+    invoiceLink.href = url;
+    invoiceLinkWrap.classList.add('visible');
+  }
+
+  function stopInvoicePolling() {
+    if (invoicePollTimer) {
+      clearInterval(invoicePollTimer);
+      invoicePollTimer = null;
+    }
+  }
+
+  async function loadPending() {
+    try {
+      const res = await fetch('http://localhost:3000/payment/pending');
+      const data = await res.json();
+      renderPending(data.pending || []);
+    } catch {
+      // Server not reachable — silently skip
+    }
+  }
+
+  function renderPending(list) {
+    const body = document.getElementById('pendingBody');
+    const badge = document.getElementById('pendingCount');
+
+    badge.textContent = list.length;
+    badge.className = 'badge-count' + (list.length === 0 ? ' zero' : '');
+
+    if (list.length === 0) {
+      body.innerHTML = `
+        <div class="pending-empty">
+          <div class="empty-icon">⏳</div>
+          <p>No pending payments right now.<br>When a parent pays via Kaspi, their receipt will appear here automatically.</p>
+        </div>`;
+      return;
+    }
+
+    body.innerHTML = `<div class="pending-grid">${list.map((p) => `
+      <div class="pending-card" id="pc-${p.receiptNumber}">
+        <div class="kaspi-badge">📱 Kaspi</div>
+        <div class="pc-amount">₸${Number(p.amount).toLocaleString('ru-KZ')}</div>
+        <div class="pc-plan">${escHtml(p.plan)}</div>
+        <div class="pc-meta">
+          📞 ${escHtml(p.phone)}<br>
+          🕐 ${new Date(p.paidAt).toLocaleString('ru-KZ', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })}
+        </div>
+        <div class="receipt-chip">🧾 <span>Receipt:</span> ${escHtml(p.receiptNumber)}</div>
+        <button class="fill-btn pulsing" onclick="fillForm(${JSON.stringify(p).replace(/"/g,'&quot;')})">
+          ✨ Fill Form
+        </button>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  function escHtml(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Called when staff clicks "Fill Form" on a pending card
+  function fillForm(pending) {
+    // Switch to Kaspi mode
+    setMethod('Kaspi');
+
+    // Auto-fill receipt number
+    const receiptInput = document.getElementById('receiptInput');
+    receiptInput.value = pending.receiptNumber;
+    receiptInput.classList.add('autofilled');
+    document.getElementById('autofillNote').classList.add('visible');
+
+    // Auto-fill phone if available
+    if (pending.phone) document.getElementById('phoneInput').value = pending.phone;
+
+    // Auto-fill payment month
+    if (pending.paidAt) {
+      document.getElementById('paymentMonth').value =
+        new Date(pending.paidAt).toLocaleDateString('en-KZ', { month: 'long', year: 'numeric' });
+    }
+
+    // Match plan by amount if possible
+    const radios = document.querySelectorAll('input[name="plan"]');
+    radios.forEach((r) => {
+      if (parseInt(r.dataset.amount) === parseInt(pending.amount)) {
+        r.checked = true;
+        document.querySelectorAll('.plan-option').forEach((o) => o.classList.remove('active'));
+        r.closest('.plan-option').classList.add('active');
+        document.getElementById('selectedAmount').textContent =
+          `₸${Number(pending.amount).toLocaleString('ru-KZ')}`;
+      }
+    });
+
+    // Mark receipt as pre-verified (came from real Kaspi webhook)
+    lastVerifiedReceipt = pending.receiptNumber;
+    lastVerifyOk = true;
+    const badge = document.getElementById('verifyBadge');
+    badge.className = 'verify-badge ok';
+    badge.textContent = '✅ Verified via Kaspi webhook';
+
+    // Scroll to form
+    document.getElementById('paymentForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('parentName').focus();
+  }
+
+  async function createKaspiInvoice() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    const plan = document.querySelector('input[name="plan"]:checked');
+
+    if (!phone) {
+      setInvoiceStatus('Enter the client phone number before generating a Kaspi invoice.', 'error');
+      document.getElementById('phoneInput').focus();
+      return;
+    }
+
+    if (!plan) {
+      setInvoiceStatus('Select a plan before generating a Kaspi invoice.', 'error');
+      return;
+    }
+
+    stopInvoicePolling();
+    activeInvoice = null;
+    invoiceBtn.disabled = true;
+    invoiceBtn.textContent = 'Generating…';
+    setInvoiceStatus('Creating Kaspi invoice…');
+    resetInvoiceLink();
+
+    try {
+      const res = await fetch('http://localhost:3000/kaspi/create-invoice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone,
+          amount: plan.dataset.amount,
+          plan: plan.value,
+          description: `${plan.value} - ${phone}`
+        })
+      });
+
+      const result = await res.json();
+      if (!res.ok || !result.success) {
+        throw new Error(result.message || 'Failed to create Kaspi invoice.');
+      }
+
+      activeInvoice = {
+        id: result.invoiceId,
+        phone,
+        amount: plan.dataset.amount,
+        plan: plan.value
+      };
+
+      if (result.qrUrl) {
+        qrImage.style.display = 'block';
+        qrImage.src = result.qrUrl;
+        showInvoiceLink(result.qrUrl);
+      } else {
+        qrImage.src = defaultQrSrc;
+        resetInvoiceLink();
+      }
+
+      setInvoiceStatus('Invoice created. Waiting for Kaspi payment…');
+      startInvoicePolling();
+    } catch (error) {
+      qrImage.src = defaultQrSrc;
+      setInvoiceStatus(error.message || 'Failed to create Kaspi invoice.', 'error');
+    } finally {
+      invoiceBtn.disabled = false;
+      invoiceBtn.textContent = 'Generate Kaspi Invoice';
+    }
+  }
+
+  function startInvoicePolling() {
+    if (!activeInvoice?.id) return;
+    stopInvoicePolling();
+    invoicePollTimer = setInterval(checkActiveInvoiceStatus, 4000);
+    checkActiveInvoiceStatus();
+  }
+
+  async function checkActiveInvoiceStatus() {
+    if (!activeInvoice?.id) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/kaspi/status/${encodeURIComponent(activeInvoice.id)}`);
+      const result = await res.json();
+
+      if (!res.ok || result.status === 'error') {
+        throw new Error(result.message || 'Failed to check Kaspi payment status.');
+      }
+
+      if (result.status === 'paid' && result.receiptNumber) {
+        stopInvoicePolling();
+        setInvoiceStatus(`Payment received. Receipt ${result.receiptNumber} pasted into the form.`, 'success');
+        if (result.plan && result.amount) {
+          fillForm({
+            receiptNumber: result.receiptNumber,
+            amount: result.amount,
+            phone: result.phone || activeInvoice.phone,
+            plan: result.plan,
+            paidAt: result.paidAt || new Date().toISOString()
+          });
+        } else {
+          fillForm({
+            receiptNumber: result.receiptNumber,
+            amount: activeInvoice.amount,
+            phone: activeInvoice.phone,
+            plan: activeInvoice.plan,
+            paidAt: result.paidAt || new Date().toISOString()
+          });
+        }
+        loadPending();
+        return;
+      }
+
+      if (result.status === 'cancelled') {
+        stopInvoicePolling();
+        setInvoiceStatus('This Kaspi invoice was cancelled.', 'error');
+        return;
+      }
+
+      setInvoiceStatus('Invoice created. Waiting for Kaspi payment…');
+    } catch (error) {
+      setInvoiceStatus(error.message || 'Failed to check Kaspi payment status.', 'error');
+    }
+  }
+
+  // Auto-refresh every 15 seconds
+  loadPending();
+  setInterval(loadPending, 15000);
+
+  // ── Receipt verification (manual Kaspi entry only) ────────────────────────
+  let verifyTimer = null;
+  let lastVerifiedReceipt = null;
+  let lastVerifyOk = false;
+
+  const receiptInput = document.getElementById('receiptInput');
+  const verifyBadge  = document.getElementById('verifyBadge');
+
+  receiptInput.addEventListener('input', () => {
+    clearTimeout(verifyTimer);
+    lastVerifiedReceipt = null;
+    lastVerifyOk = false;
+    verifyBadge.className = 'verify-badge';
+    verifyBadge.textContent = '';
+    receiptInput.classList.remove('autofilled');
+    document.getElementById('autofillNote').classList.remove('visible');
+
+    const val = receiptInput.value.trim();
+    if (!val) return;
+    verifyTimer = setTimeout(() => verifyReceipt(val), 800);
+  });
+
+  async function verifyReceipt(receiptNumber) {
+    const plan = document.querySelector('input[name="plan"]:checked');
+    verifyBadge.className = 'verify-badge checking';
+    verifyBadge.textContent = '⏳ Checking with Kaspi…';
+    try {
+      const res = await fetch('http://localhost:3000/payment/verify-receipt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ receiptNumber, expectedAmount: plan?.dataset.amount })
+      });
+      const data = await res.json();
+      if (res.ok && data.verified) {
+        lastVerifiedReceipt = receiptNumber;
+        lastVerifyOk = true;
+        verifyBadge.className = 'verify-badge ok';
+        verifyBadge.textContent = '✅ Receipt verified';
+      } else {
+        lastVerifyOk = false;
+        verifyBadge.className = 'verify-badge fail';
+        verifyBadge.textContent = `❌ ${data.message || 'Could not verify'}`;
+      }
+    } catch {
+      lastVerifyOk = false;
+      verifyBadge.className = 'verify-badge fail';
+      verifyBadge.textContent = '⚠️ Cannot reach server for verification';
+    }
+  }
+
+  // ── Submit ─────────────────────────────────────────────────────────────────
+  async function submitPayment() {
+    const form        = document.getElementById('paymentForm');
+    const errorBox    = document.getElementById('paymentError');
+    const successBox  = document.getElementById('paymentSuccess');
+    const successMsg  = document.getElementById('successMessage');
+    const submitBtn   = document.getElementById('paymentSubmit');
+
+    if (!form.reportValidity()) return;
+
+    if (currentMethod === 'Kaspi') {
+      const val = receiptInput.value.trim();
+      if (!val) { errorBox.textContent = 'Please enter the Kaspi receipt number.'; return; }
+      if (lastVerifiedReceipt !== val || !lastVerifyOk) {
+        errorBox.textContent = 'Verifying receipt — please wait…';
+        await verifyReceipt(val);
+        if (!lastVerifyOk) {
+          errorBox.textContent = 'Receipt could not be verified. Check the number and try again.';
+          return;
+        }
+        errorBox.textContent = '';
+      }
+    }
+
+    const plan = document.querySelector('input[name="plan"]:checked');
+    const fd   = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    data.plan          = plan.value;
+    data.amount        = plan.dataset.amount;
+    data.paymentMethod = currentMethod;
+
+    errorBox.textContent = '';
+    successBox.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving…';
+
+    try {
+      // Use /payment/confirm which also removes item from the pending queue
+      const res = await fetch('http://localhost:3000/payment/confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const raw = await res.text();
+      let result = {};
+      try { result = JSON.parse(raw); } catch { throw new Error('Unexpected server response. Is the server running?'); }
+      if (!res.ok || !result.success) throw new Error(result.message || `Error ${res.status}`);
+
+      // Reset
+      form.reset();
+      document.getElementById('paymentMonth').value =
+        new Date().toLocaleDateString('en-KZ', { month: 'long', year: 'numeric' });
+      document.querySelector('input[name="plan"][value="Nursery Half Day"]').checked = true;
+      document.querySelectorAll('.plan-option').forEach((o) => o.classList.remove('active'));
+      document.querySelector('.plan-option').classList.add('active');
+      document.getElementById('selectedAmount').textContent = '₸45,000';
+      setMethod('Kaspi');
+      lastVerifiedReceipt = null; lastVerifyOk = false;
+      verifyBadge.className = 'verify-badge';
+      receiptInput.classList.remove('autofilled');
+
+      successMsg.innerHTML = currentMethod === 'Cash'
+        ? 'Cash payment saved as <strong>Cash - Confirmed</strong> in <code>payments.xlsx</code>.'
+        : 'Kaspi payment saved as <strong>Confirmed</strong> in <code>payments.xlsx</code>.';
+      successBox.style.display = 'block';
+
+      // Refresh pending panel
+      loadPending();
+    } catch (err) {
+      errorBox.textContent = err instanceof TypeError
+        ? 'Cannot reach the server. Start it with npm start.'
+        : (err.message || 'Failed to save payment.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Confirm Payment';
+    }
+  }
+
+  document.getElementById('paymentSubmit').addEventListener('click', submitPayment);
+  invoiceBtn.addEventListener('click', createKaspiInvoice);
+</script>
+</body>
+</html>

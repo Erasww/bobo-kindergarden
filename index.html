@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bobo Kindergarten</title>
+<link rel = "stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet"></head>
+<body>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">⭐</div>
+    <span>Bobo Kindergarten</span>
+  </a>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#programs">Programs</a>
+    <a href="#schedule">Schedule</a>
+    <a href="payments.html">Payment</a>
+    <a href="#teachers">Teachers</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#events">Events</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" class="nav-cta">Enroll Now</a>
+  </div>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-text">
+    <div class="hero-badge">🌟 Enrolling Now for 2024–2025</div>
+    <h1>Where Every Child <em>Shines</em> & Grows</h1>
+    <p>A nurturing, joyful environment where curious minds blossom. We blend play-based learning with structured development to give every child the best start in life.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Enroll Your Child →</a>
+      <a href="payments.html" class="btn-primary" style="background:var(--grass);box-shadow:0 6px 20px rgba(86,197,150,0.4)">💳 Pay Tuition</a>
+      <a href="#programs" class="btn-secondary">🎨 Our Programs</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">7+</span><span class="stat-label">Years of Experience</span></div>
+      <div class="stat"><span class="stat-num">340+</span><span class="stat-label">Happy Graduates</span></div>
+      <div class="stat"><span class="stat-num">18</span><span class="stat-label">Expert Teachers</span></div>
+      <div class="stat"><span class="stat-num">4.7★</span><span class="stat-label">Parent Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-wrap">
+      <div class="hero-main-card">
+        <div class="hero-emoji-grid">
+          <div class="hero-emoji" style="background:#FFF0C8">🎨</div>
+          <div class="hero-emoji" style="background:#E0F7FF">📚</div>
+          <div class="hero-emoji" style="background:#FFE8EF">🎵</div>
+          <div class="hero-emoji" style="background:#D8F0E8">🌱</div>
+          <div class="hero-emoji" style="background:#F0EEFF">🧩</div>
+          <div class="hero-emoji" style="background:#FFF3E8">⚽</div>
+        </div>
+      </div>
+      <div class="float-badge top-right">
+        <span style="font-size:1.3rem">🏆</span>
+        <span><b>Award Winning</b><br><span style="font-weight:400;color:var(--mid)">Best Kindergarten 2023</span></span>
+      </div>
+      <div class="float-badge bottom-left">
+        <div class="badge-dot" style="background:var(--grass)"></div>
+        <span><b>Safe & Certified</b> Environment</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid reveal">
+    <div class="about-img-stack">
+      <div class="about-img-box main">🧒</div>
+      <div class="about-img-box accent">🌈</div>
+      <div class="about-year">
+        <div class="num">12</div>
+        <div class="lbl">Years of Joy</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag" style="background:rgba(86,197,150,0.12);color:var(--grass)">🌱 About Us</div>
+      <h2 class="section-title">A Place Your Child Will <em style="color:var(--rose);font-style:normal">Love</em> Every Day</h2>
+      <p class="section-sub">Founded in 2012, Bobo Kindergarten has been a beacon of excellence in early childhood education. Our philosophy centers on holistic development — nurturing cognitive, emotional, social, and physical growth.</p>
+      <div class="about-cards">
+        <div class="about-card">
+          <div class="icon">🏡</div>
+          <h4>Safe Environment</h4>
+          <p>CCTV monitored, child-proofed, and hygiene-certified spaces where kids feel completely safe.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🎯</div>
+          <h4>Curriculum</h4>
+          <p>International standards–based curriculum blending play, creativity, and structured learning.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">👨‍👩‍👧</div>
+          <h4>Family Involvement</h4>
+          <p>Regular parent updates, open-day events, and family workshops to stay connected.</p>
+        </div>
+        <div class="about-card">
+          <div class="icon">🌍</div>
+          <h4>Multilingual</h4>
+          <p>English, Kazakh, and Russian instruction — giving children a trilingual advantage from day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(79,195,247,0.12);color:#0288D1">🎨 What We Offer</div>
+    <h2 class="section-title">Our Learning Programs</h2>
+    <p class="section-sub">Each program is carefully designed to match the developmental stage of your child, making learning a joyful adventure.</p>
+  </div>
+  <div class="programs-grid reveal">
+    <div class="program-card p1">
+      <div class="p-icon">🐣</div>
+      <h3>Baby Steps (Nursery)</h3>
+      <p>Gentle introduction to social play, sensory exploration, and building comfort away from home in a warm, caring setting.</p>
+      <span class="p-age">👶 Ages 1.5–2.5</span>
+    </div>
+    <div class="program-card p2">
+      <div class="p-icon">🌱</div>
+      <h3>Little Explorers</h3>
+      <p>Discovery-based learning through nature, art, and storytelling. Building early language, math foundations, and self-confidence.</p>
+      <span class="p-age">🧒 Ages 2.5–3.5</span>
+    </div>
+    <div class="program-card p3">
+      <div class="p-icon">🎨</div>
+      <h3>Creative Minds</h3>
+      <p>Arts, music, and hands-on crafts that foster imagination and self-expression while developing fine motor skills.</p>
+      <span class="p-age">👦 Ages 3–5</span>
+    </div>
+    <div class="program-card p4">
+      <div class="p-icon">📚</div>
+      <h3>Smart Readers</h3>
+      <p>Early literacy and numeracy in a fun, engaging way — preparing children to thrive in primary school.</p>
+      <span class="p-age">📖 Ages 4–6</span>
+    </div>
+    <div class="program-card p5">
+      <div class="p-icon">🧠</div>
+      <h3>STEM Juniors</h3>
+      <p>Introduction to science, technology, engineering and math through experiments, building blocks, and logical challenges.</p>
+      <span class="p-age">🔬 Ages 4–6</span>
+    </div>
+    <div class="program-card p6">
+      <div class="p-icon">🌙</div>
+      <h3>After-School Care</h3>
+      <p>Supervised activities, homework help, outdoor play, and healthy snacks for children until 7 PM.</p>
+      <span class="p-age">🌇 Until 7 PM</span>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE & FEES -->
+<section id="schedule">
+  <div class="center reveal" style="margin-bottom:48px">
+    <div class="section-tag" style="background:rgba(255,184,48,0.12);color:#B26A00">⏰ Daily Routine</div>
+    <h2 class="section-title">Daily Schedule & Fees</h2>
+    <p class="section-sub">A balanced, structured day designed to maximise learning, play, and rest.</p>
+  </div>
+  <div class="schedule-wrap reveal">
+    <div class="schedule-list">
+      <div class="schedule-item active"><span class="time">7:30–8:30</span><div class="s-dot" style="background:var(--sky)"></div><div class="s-info"><h4>Morning Arrival & Free Play</h4><p>Drop-off, greetings, unstructured exploration</p></div></div>
+      <div class="schedule-item"><span class="time">8:30–9:00</span><div class="s-dot" style="background:var(--grass)"></div><div class="s-info"><h4>Morning Circle & Calendar</h4><p>Songs, weather, news, mindfulness</p></div></div>
+      <div class="schedule-item"><span class="time">9:00–10:00</span><div class="s-dot" style="background:var(--rose)"></div><div class="s-info"><h4>Learning Centres</h4><p>Literacy, numeracy, STEM stations</p></div></div>
+      <div class="schedule-item"><span class="time">10:00–10:30</span><div class="s-dot" style="background:var(--sun)"></div><div class="s-info"><h4>Snack & Rest</h4><p>Healthy snack provided by the academy</p></div></div>
+      <div class="schedule-item"><span class="time">10:30–11:30</span><div class="s-dot" style="background:var(--lavender)"></div><div class="s-info"><h4>Outdoor Play & PE</h4><p>Physical activity, sports, playground</p></div></div>
+      <div class="schedule-item"><span class="time">11:30–12:30</span><div class="s-dot" style="background:var(--peach)"></div><div class="s-info"><h4>Arts, Music & Crafts</h4><p>Creative expression and projects</p></div></div>
+      <div class="schedule-item"><span class="time">12:30–1:30</span><div class="s-dot" style="background:var(--grass)"></div><div class="s-info"><h4>Lunch & Afternoon Rest</h4><p>Nutritious lunch, nap for younger kids</p></div></div>
+      <div class="schedule-item"><span class="time">1:30–3:00</span><div class="s-dot" style="background:var(--sky)"></div><div class="s-info"><h4>Language & Story Time</h4><p>Trilingual reading, storytelling</p></div></div>
+      <div class="schedule-item"><span class="time">3:00–3:30</span><div class="s-dot" style="background:var(--rose)"></div><div class="s-info"><h4>Pick-Up / After-Care Begins</h4><p>Regular pick-up or extended care</p></div></div>
+    </div>
+    <div class="fees-box">
+      <h3>💰 Tuition & Fees</h3>
+      <div class="fee-row">
+        <div><div class="fee-name">🐣 Nursery (Half Day)</div><div style="font-size:.8rem;color:var(--mid)">7:30 AM – 1:30 PM</div></div>
+        <div class="fee-badge" style="background:rgba(79,195,247,0.15);color:#0288D1">₸45,000/mo</div>
+      </div>
+      <div class="fee-row">
+        <div><div class="fee-name">🌱 Pre-K (Full Day)</div><div style="font-size:.8rem;color:var(--mid)">7:30 AM – 3:30 PM</div></div>
+        <div class="fee-badge" style="background:rgba(86,197,150,0.15);color:#1B8A59">₸65,000/mo</div>
+      </div>
+      <div class="fee-row">
+        <div><div class="fee-name">📚 Kindergarten (Full Day)</div><div style="font-size:.8rem;color:var(--mid)">7:30 AM – 3:30 PM</div></div>
+        <div class="fee-badge" style="background:rgba(255,184,48,0.15);color:#B26A00">₸75,000/mo</div>
+      </div>
+      <div class="fee-row">
+        <div><div class="fee-name">🌙 After-Care Extension</div><div style="font-size:.8rem;color:var(--mid)">3:30 PM – 7:00 PM</div></div>
+        <div class="fee-badge" style="background:rgba(167,139,250,0.15);color:#5B21B6">₸20,000/mo</div>
+      </div>
+      <div class="fee-row">
+        <div><div class="fee-name">🍱 Lunch Program</div><div style="font-size:.8rem;color:var(--mid)">Nutritious daily meals</div></div>
+        <div class="fee-badge" style="background:rgba(255,107,138,0.12);color:#C0224B">₸12,000/mo</div>
+      </div>
+      <div style="margin-top:20px;padding:14px;background:rgba(86,197,150,0.1);border-radius:12px;font-size:.85rem;color:var(--mid)">
+        🎁 <strong>Sibling Discount:</strong> 10% off for second child. Registration fee: ₸10,000 (one-time).
+      </div>
+      <a href="payments.html" class="btn-secondary" style="margin-top:20px">💳 Pay Tuition Online</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHERS -->
+<section id="teachers">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(167,139,250,0.12);color:#5B21B6">👩‍🏫 Our Team</div>
+    <h2 class="section-title">Meet Our Wonderful Teachers</h2>
+    <p class="section-sub">Qualified, passionate educators dedicated to nurturing each child's unique potential with warmth and expertise.</p>
+  </div>
+  <div class="teachers-grid reveal">
+    <div class="teacher-card t1">
+      <div class="teacher-avatar">👩‍🏫</div>
+      <h3>Sarah Johnson</h3>
+      <div class="t-role">Head Teacher</div>
+      <p>15 years experience. MA in Early Childhood Education. Specializes in Montessori methods and trilingual development.</p>
+    </div>
+    <div class="teacher-card t2">
+      <div class="teacher-avatar">👨‍🎨</div>
+      <h3>David Kim</h3>
+      <div class="t-role">Arts & Music</div>
+      <p>Professional musician and art educator. Creates magical creative sessions that spark imagination in every child.</p>
+    </div>
+    <div class="teacher-card t3">
+      <div class="teacher-avatar">👩‍🔬</div>
+      <h3>Aisha Nurova</h3>
+      <div class="t-role">STEM Lead</div>
+      <p>Engineering graduate turned early educator. Makes science come alive through hands-on experiments and building challenges.</p>
+    </div>
+    <div class="teacher-card t4">
+      <div class="teacher-avatar">👩‍🍳</div>
+      <h3>Maria Santos</h3>
+      <div class="t-role">Nutrition & Care</div>
+      <p>Certified child nutritionist ensuring healthy, balanced meals and snacks. Also leads mindfulness and wellness activities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(255,107,138,0.12);color:#C0224B">📸 Gallery</div>
+    <h2 class="section-title">Life at Bobo Kindergarten</h2>
+    <p class="section-sub">A glimpse into the joy, learning, and friendships that happen every day at our kindergarten.</p>
+  </div>
+  <div class="gallery-filters reveal">
+    <button class="gf-btn active" onclick="filterGallery(this,'all')">All</button>
+    <button class="gf-btn" onclick="filterGallery(this,'art')">🎨 Arts & Crafts</button>
+    <button class="gf-btn" onclick="filterGallery(this,'play')">⚽ Outdoor Play</button>
+    <button class="gf-btn" onclick="filterGallery(this,'learn')">📚 Learning</button>
+    <button class="gf-btn" onclick="filterGallery(this,'events')">🎉 Events</button>
+  </div>
+  <div class="gallery-grid reveal" id="galleryGrid">
+    <div class="gallery-item tall" style="background:linear-gradient(135deg,#FFE8EF,#FFC8D5)" data-cat="art"><span>🎨</span><div class="overlay"><span>Art Workshop</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#E0F7FF,#B3E8FF)" data-cat="play"><span>⚽</span><div class="overlay"><span>Sports Day</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#FFF3D0,#FFDF8A)" data-cat="learn"><span>📖</span><div class="overlay"><span>Story Time</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#F0EEFF,#D8CCFF)" data-cat="events"><span>🎉</span><div class="overlay"><span>Graduation Day</span></div></div>
+    <div class="gallery-item wide" style="background:linear-gradient(135deg,#D8F0E8,#A8E6CC)" data-cat="learn"><span>🌱</span><div class="overlay"><span>Science Experiments</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#FFE8D0,#FFD0A8)" data-cat="art"><span>🖌️</span><div class="overlay"><span>Painting Class</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#FFD0D8,#FFB8C4)" data-cat="events"><span>🎵</span><div class="overlay"><span>Music Show</span></div></div>
+    <div class="gallery-item tall" style="background:linear-gradient(135deg,#D0E8FF,#A8D0FF)" data-cat="play"><span>🛝</span><div class="overlay"><span>Playground Fun</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#E8FFD0,#C8F0A0)" data-cat="learn"><span>🔢</span><div class="overlay"><span>Math Games</span></div></div>
+    <div class="gallery-item" style="background:linear-gradient(135deg,#FFE8FF,#F0C8FF)" data-cat="art"><span>✂️</span><div class="overlay"><span>Craft Morning</span></div></div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(255,184,48,0.12);color:#B26A00">📅 Events</div>
+    <h2 class="section-title">Upcoming Events</h2>
+    <p class="section-sub">Exciting activities, celebrations, and learning opportunities happening soon!</p>
+  </div>
+  <div class="events-grid reveal">
+    <div class="event-card">
+      <div class="event-banner" style="background:linear-gradient(135deg,#FFE8EF,#FFC8D5)"><span style="position:relative;z-index:1">🎪</span></div>
+      <div class="event-body">
+        <div class="event-date-badge" style="background:rgba(255,107,138,0.12);color:#C0224B">📅 April 15, 2026</div>
+        <h3>Spring Fun Fair</h3>
+        <p>Our annual Spring Fun Fair with games, face painting, live music, and a bake sale. Families welcome!</p>
+      </div>
+      <div class="event-footer"><a href="#contact" class="event-link">RSVP Now →</a></div>
+    </div>
+    <div class="event-card">
+      <div class="event-banner" style="background:linear-gradient(135deg,#E0F7FF,#B3E8FF)"><span style="position:relative;z-index:1">🔬</span></div>
+      <div class="event-body">
+        <div class="event-date-badge" style="background:rgba(79,195,247,0.12);color:#0288D1">📅 April 22, 2026</div>
+        <h3>STEM Showcase</h3>
+        <p>Children present their science projects to parents. Prepare to be amazed by our tiny scientists and engineers!</p>
+      </div>
+      <div class="event-footer"><a href="#contact" class="event-link">Learn More →</a></div>
+    </div>
+    <div class="event-card">
+      <div class="event-banner" style="background:linear-gradient(135deg,#FFF3D0,#FFDF8A)"><span style="position:relative;z-index:1">🎓</span></div>
+      <div class="event-body">
+        <div class="event-date-badge" style="background:rgba(255,184,48,0.12);color:#B26A00">📅 May 30, 2026</div>
+        <h3>End-of-Year Graduation</h3>
+        <p>Celebrating our graduates as they move on to primary school. A ceremony full of pride, joy, and memories.</p>
+      </div>
+      <div class="event-footer"><a href="#contact" class="event-link">Register →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(86,197,150,0.12);color:var(--grass)">💬 Parent Reviews</div>
+    <h2 class="section-title">Ата аналардың пікірі</h2>
+    <p class="section-sub">Our greatest achievement is happy children and satisfied parents.</p>
+  </div>
+  
+  <div class="testimonials-grid reveal">
+    <a href="https://2gis.kz/reviews/70000001041697984/review/232477430" target="_blank" class="testi-link">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p>Өте жақсы балабақша! Сенімді,Таза әрі Тәрбиешілеріде мейірімді жақсы жандар
+Асем Бейбітбекқызына өте жақсы жан, алғысымызды айтамыз💕</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#FFE8EF">👩</div>
+          <div class="testi-info"><h4>Аяжан Бидахметова</h4></div>
+        </div>
+        <div class="two-gis-badge">Read on 2GIS →</div>
+      </div>
+    </a>
+
+    <a href="https://2gis.kz/reviews/70000001041697984/review/232475782" target="_blank" class="testi-link">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p>Өте керемет балабақша, жаңа технология бойынша баланың қызығушылығын арттыратын қызықты жаттығулар жасалады. Қызымыз балабақшаға барамын деп асығып тұрады. Асем Бейбітбекқызы бастаған бұл ұжымға алғысым шексіз. Баламен тек жұмыс жасап қоймай, оларға өте мейірімді, өз аналарындай қарайтын тәрбиешілерге де мың алғыс. Жұмыстарыңыз өрге жүзе берсін. Асем апай еңбегіңіздің жемісін көріңіз! Әр балаға өз балаңыздай қарап жүрген мейірімділігіңізге шексіз ризамын! Рахмет!</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#E0F7FF">👩</div>
+          <div class="testi-info"><h4>Назгуль Аубакирова</h4></div>
+        </div>
+        <div class="two-gis-badge">Read on 2GIS →</div>
+      </div>
+    </a>
+
+    <a href="https://2gis.kz/reviews/70000001041697984/review/211740841" target="_blank" class="testi-link">
+      <div class="testi-card">
+        <div class="stars">★★★★★</div>
+        <div class="testi-quote">"</div>
+        <p>Советую всем очень хороший Садик ,воспитатели очень хорошие ,вежливые ,трудолюбивые</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#D8F0E8">👨</div>
+          <div class="testi-info"><h4>Zhasulan Omirzhan</h4><span>Частый гость<br>Отзыв подтверждён</span></div>
+        </div>
+        <div class="two-gis-badge">Read on 2GIS →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="center reveal">
+    <div class="section-tag" style="background:rgba(167,139,250,0.12);color:#5B21B6">❓ FAQ</div>
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-sub">Everything you need to know before enrolling your child.</p>
+  </div>
+  <div class="faq-wrap reveal">
+    <div class="faq-item open">
+      <div class="faq-q" onclick="toggleFaq(this)">What age do you accept children from?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We welcome children from 18 months to 6 years old across our various programs. Our Nursery program starts at 1.5 years, and our Pre-K and Kindergarten programs are available from age 2.5 to 6.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What languages are used in teaching?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We offer a trilingual curriculum in English, Kazakh, and Russian. Each day includes dedicated time in each language, giving children a strong foundation in all three. Language immersion begins naturally through songs, stories, and play.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do you handle dietary requirements and allergies?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We take food safety very seriously. Parents provide detailed dietary information during enrollment, and our certified nutritionist creates custom meal plans. We are a nut-free facility and accommodate all allergies, intolerances, and cultural dietary requirements.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">What is the teacher-to-child ratio?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We maintain a 1:6 ratio for Nursery (under 2 years), 1:8 for Pre-K, and 1:10 for Kindergarten. This ensures every child receives individual attention and care throughout their day.</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do you communicate with parents?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">We use our dedicated parent app for daily updates, photos, and reports. Each child receives a weekly learning summary. We hold monthly parent-teacher meetings and host termly open days. Our door is always open!</div></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is there a trial day available?<div class="toggle">+</div></div>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely! We encourage all prospective families to book a free trial day. Your child spends a full session with us (accompanied by a parent if under 2), and you'll get a tour of our facilities and meet the team.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT & ENROLLMENT -->
+<section id="contact">
+  <div class="contact-wrap reveal">
+    <div>
+      <div class="section-tag" style="background:rgba(255,107,138,0.12);color:#C0224B">📩 Get In Touch</div>
+      <h2 class="section-title">Enroll Your Child Today</h2>
+      <p class="section-sub" style="margin-bottom:36px">Take the first step toward your child's bright future. Fill in the form and our team will contact you within 24 hours.</p>
+      <div class="contact-info">
+        <div class="ci-item">
+          <div class="ci-icon" style="background:rgba(79,195,247,0.15)">📍</div>
+          <a href="https://go.2gis.com/akWfF" target="_blank" class="testi-link">
+          <div><h4>Address</h4><p>Улица Аркалык, 80
+Кок-Кайнар м-н, Алатауский район, Алматы,
+1 этаж<br>Kazakhstan,  050047/A36Y3Y4</p></div></a>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon" style="background:rgba(86,197,150,0.15)">📞</div>
+          <div><h4>Phone</h4><p>+7 (727) 123-45-67<br>+7 (700) 987-65-43</p></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon" style="background:rgba(255,184,48,0.15)">✉️</div>
+          <div><h4>Email</h4><p>hello@bobo.kz<br>enroll@bobo.kz</p></div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon" style="background:rgba(167,139,250,0.15)">🕐</div>
+          <div><h4>Working Hours</h4><p>Monday – Friday: 7:30 AM – 6:00 PM<br>Saturday and Sunday: wee</p></div>
+        </div>
+      </div>
+      <div style="margin-top:28px">
+        <a href="payments.html" class="btn-secondary">💳 Already enrolled? Pay here</a>
+      </div>
+    </div>
+   <form class="enroll-form" id="enrollForm">
+        <h3>✏️ Enrollment Inquiry</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Parent's First Name</label><input type="text" name="parentFirstName" placeholder="e.g. Ainur" required></div>
+        <div class="form-group"><label>Parent's Last Name</label><input type="text" name="parentLastName" placeholder="e.g. Bekova" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="+7 (700) 000-0000" required></div>
+        <div class="form-group"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Child's Name</label><input type="text" name="childName" placeholder="e.g. Zarina" required></div>
+        <div class="form-group"><label>Child's Age</label><select name="childAge" required><option value="">Select age</option><option>1.5 - 2.5 years</option><option>2.5 - 3.5 years</option><option>3 - 4 years</option><option>4 - 5 years</option><option>5 - 6 years</option></select></div>
+      </div>
+      <div class="form-group"><label>Program of Interest</label><select name="program" required><option value="">Select program</option><option>Baby Steps (Nursery)</option><option>Little Explorers</option><option>Creative Minds</option><option>Smart Readers</option><option>STEM Juniors</option><option>After-School Care</option></select></div>
+      <div class="form-group"><label>Message (optional)</label><textarea name="message" placeholder="Any questions, special requirements, or notes for our team..."></textarea></div>
+      <p class="form-error" id="formError" aria-live="polite"></p>
+      <button type="button" class="form-submit" id="submitButton">🌟 Submit Enrollment Inquiry</button>
+      <div class="form-success" id="formSuccess">
+      <div class="check">🎉</div>
+      <h4>Thank You!</h4>
+      <p>We've received your inquiry and will contact you within 24 hours. Welcome to the Bobo Kindergarten family!</p>
+      </div>
+    </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo"><div class="logo-icon">⭐</div><span>Bobo Kindergarten</span></a>
+      <p>A nurturing home away from home where every child discovers their potential and shines bright.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="payments.html">Pay Tuition</a></li>
+        <li><a href="#teachers">Our Teachers</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#events">Events</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Nursery (1.5–2.5)</a></li>
+        <li><a href="#programs">Pre-K (2.5–4)</a></li>
+        <li><a href="#programs">Kindergarten (4–6)</a></li>
+        <li><a href="#programs">STEM Juniors</a></li>
+        <li><a href="#programs">After-Care</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+77271234567">📞 +7 (727) 123-45-67</a></li>
+        <li><a href="mailto:hello@bobo.kz">✉️ hello@bobo.kz</a></li>
+        <li><a href="#contact">📍 Almaty, Kazakhstan</a></li>
+        <li><a href="#contact">🗓️ Book a Tour</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Bobo Kindergarten. All rights reserved. Made with ❤️ for children.</p>
+    <div class="social-links">
+      <a href="#" class="social-btn" title="Instagram">📸</a>
+      <a href="#" class="social-btn" title="Facebook">👥</a>
+      <a href="#" class="social-btn" title="WhatsApp">💬</a>
+      <a href="#" class="social-btn" title="YouTube">▶️</a>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
